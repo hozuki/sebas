@@ -1,0 +1,43 @@
+{
+  "name": "sebas",
+  "version": "0.0.1",
+  "description": "SEBAS is a script engine designed to visualize the contents in BAS scripts.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "pretest": "npm run genparser",
+    "test": "mocha tests --recursive",
+    "genparser": "node scripts/genparser.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hozuki/sebas.git"
+  },
+  "keywords": [
+    "sebas",
+    "webgl"
+  ],
+  "author": "George Wu <uiharu@buaa.edu.cn>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/hozuki/sebas/issues"
+  },
+  "homepage": "https://github.com/hozuki/sebas#readme",
+  "dependencies": {
+    "browserify": "^14.5.0",
+    "chalk": "^2.3.0",
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-typescript": "^3.2.3",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "mocha": "^4.0.1",
+    "pegjs": "^0.10.0",
+    "typescript": "^2.6.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
