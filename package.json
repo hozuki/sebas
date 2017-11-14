@@ -39,5 +39,8 @@
     "typescript": "^2.6.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "devDependencies": {
+    "appveyor-mocha": "^1.1.2"
   }
 }
