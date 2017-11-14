@@ -8,6 +8,9 @@ SEBAS is a script engine designed to visualize the contents in BAS scripts.
 
 Work in progress. **UNSTABLE.**
 
+[![AppVeyor](https://img.shields.io/appveyor/ci/hozuki/sebas.svg)](https://ci.appveyor.com/project/hozuki/sebas)
+[![AppVeyor tests](https://img.shields.io/appveyor/tests/hozuki/sebas.svg)](https://ci.appveyor.com/project/hozuki/sebas/build/tests)
+
 ## Building
 
 See [BUILDING.md](BUILDING.md).
