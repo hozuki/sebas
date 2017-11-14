@@ -2,43 +2,44 @@
 // ==========================
 
 Program
-  = _ defs:DefObject* _ sets:SerialSet*
+  = _ defs:DefStatement* _ sets:SetStatement*
 
-/*
-ParallelSetUnit
-  = _ items:(SetBlock / SetList)+ {
-  }
+SetStatement
+  = _ first:SetStatementUnit then:(_ "then" _ SetStatement)* {
+    let thenArray;
 
-SetBlock
-  = _ "{" sets:ParallelSetUnit? _ "}" {
-  }
-*/
+    if (then && then.length > 0) {
+      thenArray = [];
 
-SerialSet
-  = _ first:SetExpr thens:(_ "then" _ SetExpr)* {
-    const commands = [first];
-    
-    if (thens && thens.length > 0) {
-      for (let i = 0; i < thens.length; ++i) {
-        commands.push(thens[i][3]);
+      for (let i = 0; i < then.length; ++i) {
+        thenArray.push(then[i][3]);
       }
+    } else {
+      thenArray = null;
     }
 
     return {
-      "type": "serial",
-      "commands": commands
+      "first": first,
+      "then": thenArray
     };
   }
 
-SetExpr
-  = _ "set" target:SetTarget options:SetOptions {
+SetStatementUnit
+  = _ "{" sets:SetStatement* _ "}" {
+    if (sets && sets.length > 0) {
+      return sets;
+    } else {
+      return null;
+    }
+  }
+  / _ "set" target:SimpleSetTarget options:SimpleSetOptions {
     return {
       "target": target,
       "options": options
     };
   }
 
-SetTarget
+SimpleSetTarget
   = _ name:ID props:SetPropObject {
     return {
       "name": name,
@@ -67,7 +68,7 @@ SetPropItem
     };
   }
 
-SetOptions
+SimpleSetOptions
   = _ duration:TimeValue interp:InterpolationPart? {
     const interpolation = interp ? interp : "linear";
     const result = {
@@ -91,7 +92,7 @@ InterplationTargetValue
     };
   }
 
-DefObject
+DefStatement
   = _ "def" _ type:ID _ name:ID props:DefPropObject {
     return {
       "type": type,
@@ -130,10 +131,10 @@ DefPropItem
   }
 
 PrimitiveValue "primitive"
-  = TimeValue / StringValue / IntegerValue / FloatValue
+  = TimeValue / StringValue / _HexIntegerValue / FloatValue / _DecIntegerValue // weird but required
 
 TimeValue
-  = minutes:IntegerValue "m" seconds:_TimeSecondsValue? {
+  = minutes:FloatValue "m" seconds:_TimeSecondsValue? {
     let value = minutes * 60;
     
     if (seconds) {
@@ -145,15 +146,35 @@ TimeValue
   / _TimeSecondsValue
 
 _TimeSecondsValue
-  = seconds:IntegerValue "s" {
+  = seconds:FloatValue "s" {
     return seconds;
   }
 
+// String matching rules: https://stackoverflow.com/a/34019313
+
 StringValue
-  = '"'[^"]*'"' { // TODO: fix this
-    const val = text();
-    return val.substring(1, val.length - 1);
+  = '"' chars:_DoubleStringCharacter* '"' { 
+    return chars.join("");
   }
+
+_DoubleStringCharacter
+  = !('"' / "\\") char:. {
+    return char;
+  }
+  / "\\" sequence:_EscapeSequence {
+    return sequence;
+  }
+
+_EscapeSequence
+  = "'"
+  / '"'
+  / "\\"
+  / "b"  { return "\b"; }
+  / "f"  { return "\f"; }
+  / "n"  { return "\n"; }
+  / "r"  { return "\r"; }
+  / "t"  { return "\t"; }
+  / "v"  { return "\x0B"; }
 
 IntegerValue
   = _HexIntegerValue
@@ -161,8 +182,7 @@ IntegerValue
 
 _HexIntegerValue
  = ("+" / "-")? "0" ("X" / "x") [0-9A-Fa-f]+ {
-    const val = text();
-    return Number.parseInt(val.substring(2), 16);
+    return Number.parseInt(text());
   }
 
 _DecIntegerValue

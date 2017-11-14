@@ -13,10 +13,9 @@ const grammarFileContent = fs.readFileSync(grammarInPath, { "encoding": "utf-8" 
 const allowedEntries = [
     "Program",
     "PrimitiveValue",
-    "DefObject",
+    "DefStatement",
     "DefSubPropObject",
-    "SetExpr",
-    "SerialSet"
+    "SetStatement",
 ];
 
 console.info(chalk.blue("Generating parser..."));
