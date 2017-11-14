@@ -8,7 +8,7 @@
   },
   "scripts": {
     "pretest": "npm run genparser",
-    "test": "mocha tests --reporter mocha-appveyor-reporter --recursive",
+    "test": "mocha tests --reporter mocha-multi-reporters --reporter-options configFile=config/mocha-multi-reporters.json --recursive",
     "genparser": "node scripts/genparser.js"
   },
   "repository": {
@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "appveyor-mocha": "^1.1.2",
-    "mocha-appveyor-reporter": "^0.4.0"
+    "mocha-appveyor-reporter": "^0.4.0",
+    "mocha-multi-reporters": "^1.1.6"
   }
 }
