@@ -8,7 +8,7 @@
   },
   "scripts": {
     "pretest": "npm run genparser",
-    "test": "mocha tests --recursive",
+    "test": "mocha tests --reporter mocha-appveyor-reporter --recursive",
     "genparser": "node scripts/genparser.js"
   },
   "repository": {
@@ -41,6 +41,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "devDependencies": {
-    "appveyor-mocha": "^1.1.2"
+    "appveyor-mocha": "^1.1.2",
+    "mocha-appveyor-reporter": "^0.4.0"
   }
 }
