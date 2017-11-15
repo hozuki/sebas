@@ -1,6 +1,15 @@
 // BAS Grammar
 // ==========================
 
+{
+  function wrapPrimitive(type, value) {
+    return {
+      "type": type,
+      "value": value
+    };
+  }
+}
+
 Program
   = _ defs:DefStatement* _ sets:SetStatement*
 
@@ -56,40 +65,41 @@ SetPropItem
   = _ name:ID _ "=" _ value:PrimitiveValue {
     return {
       "name": name,
-      "value": value,
-      "type": "primitive"
+      "value": value
     };
   }
-  / _ name:ID _ "=" value: InterplationTargetValue {
+  / _ name:ID _ "=" value: InterpolationTargetValue {
     return {
       "name": name,
-      "value": value,
-      "type": "animated"
+      "value": value
     };
   }
 
 SimpleSetOptions
-  = _ duration:TimeValue interp:InterpolationPart? {
-    const interpolation = interp ? interp : "linear";
+  = _ duration:TimeValue interp:_InterpolationMethod? {
+    const interpolation = interp ? interp : wrapPrimitive("string", "linear");
     const result = {
       "duration": duration,
-      "defaultInterpolation": interpolation
+      "defaultInterpolationMethod": interpolation
     };
 
     return result;
   }
 
-InterpolationPart
-  = _ "," _ str:StringValue {
-    return str ? str : "linear";
+InterpolationTargetValue
+  = _ "[" _ targetValue:PrimitiveValue interp:_InterpolationMethod? _ "]" {
+    return {
+      "type": "interpolation",
+      "value": {
+        "targetValue": targetValue,
+        "method": interp // this can be null or empty
+      }
+    };
   }
 
-InterplationTargetValue
-  = _ "[" _ value:(IntegerValue / FloatValue) interp:InterpolationPart? _ "]" {
-    return {
-      "value": value,
-      "interpolation": interp // this can be null or empty
-    };
+_InterpolationMethod
+  = _ "," _ str:StringValue {
+    return str ? str : wrapPrimitive("string", "linear");
   }
 
 DefStatement
@@ -118,43 +128,41 @@ DefPropItem
   = _ name:ID _ "=" value:DefSubPropObject {
     return {
       "name": name,
-      "value": value,
-      "type": "object"
+      "value": value
     };
   }
   / _ name:ID _ "=" _ value:PrimitiveValue {
     return {
       "name": name,
-      "value": value,
-      "type": "primitive"
+      "value": value
     };
   }
 
 PrimitiveValue "primitive"
-  = TimeValue / StringValue / _HexIntegerValue / FloatValue / _DecIntegerValue // weird but required
+  = TimeValue / StringValue / NumberValue
 
 TimeValue
-  = minutes:FloatValue "m" seconds:_TimeSecondsValue? {
-    let value = minutes * 60;
+  = minutes:_FloatValue "m" seconds:_TimeSecondsValue? {
+    let value = minutes.value * 60;
     
     if (seconds) {
-      value += seconds;
+      value += seconds.value;
     }
 
-    return value;
+    return wrapPrimitive("time", value);
   }
   / _TimeSecondsValue
 
 _TimeSecondsValue
-  = seconds:FloatValue "s" {
-    return seconds;
+  = seconds:_FloatValue "s" {
+    return wrapPrimitive("time", seconds.value);
   }
 
 // String matching rules: https://stackoverflow.com/a/34019313
 
 StringValue
-  = '"' chars:_DoubleStringCharacter* '"' { 
-    return chars.join("");
+  = '"' chars:_DoubleStringCharacter* '"' {
+    return wrapPrimitive("string", chars.join(""));
   }
 
 _DoubleStringCharacter
@@ -176,23 +184,30 @@ _EscapeSequence
   / "t"  { return "\t"; }
   / "v"  { return "\x0B"; }
 
-IntegerValue
+NumberValue
   = _HexIntegerValue
+  / _PercentageValue
+  / _FloatValue
   / _DecIntegerValue
 
 _HexIntegerValue
- = ("+" / "-")? "0" ("X" / "x") [0-9A-Fa-f]+ {
-    return Number.parseInt(text());
+  = ("+" / "-")? "0" ("X" / "x") [0-9A-Fa-f]+ {
+    return wrapPrimitive("number", Number.parseInt(text()));
   }
 
 _DecIntegerValue
   = ("+" / "-")? [1-9][0-9]* { 
-    return Number.parseInt(text()); 
+    return wrapPrimitive("number", Number.parseInt(text()));
   }
 
-FloatValue
+_FloatValue
   = ("+" / "-")? ([0-9]+ ("." [0-9]*)? / "." [0-9]+) {
-    return Number.parseFloat(text());
+    return wrapPrimitive("number", Number.parseFloat(text()));
+  }
+
+_PercentageValue
+  = float:_FloatValue "%" {
+    return wrapPrimitive("percentage", float.value);
   }
 
 ID "identifier"

@@ -4,8 +4,8 @@ const fs = require("fs");
 const peg = require("pegjs");
 const chalk = require("chalk").default;
 
-const grammarInPath = "src/moe/mottomo/sebas/parsing/src/bas.pegjs";
-const parserOutPath = "src/moe/mottomo/sebas/parsing/src/bas_parser.js";
+const grammarInPath = "src/moe/mottomo/sebas/parsing/grammar/bas.pegjs";
+const parserOutPath = "src/moe/mottomo/sebas/parsing/grammar/bas_parser.js";
 
 console.info(chalk.blue(`Reading grammar from ${grammarInPath} ...`));
 const grammarFileContent = fs.readFileSync(grammarInPath, { "encoding": "utf-8" });

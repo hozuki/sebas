@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "PrimitiveValue<T>",
+    "description": "Primitive value",
+    "properties": {
+        "type": {
+            "description": "Type of this PrimitiveValue<T>.",
+            "type": "string"
+        },
+        "value": {
+            "description": "Value of this PrimitiveValue<T>.",
+            "type": [
+                "array",
+                "boolean",
+                "integer",
+                "null",
+                "number",
+                "object",
+                "string"
+            ]
+        }
+    },
+    "required": [
+        "type",
+        "value"
+    ],
+    "type": "object"
+}

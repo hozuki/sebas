@@ -1,5 +1,5 @@
 const assert = require("assert");
-const parser = require("../../../../src/moe/mottomo/sebas/parsing/src/bas_parser");
+const parser = require("../../../../src/moe/mottomo/sebas/parsing/grammar/bas_parser");
 
 describe("Parsing", () => {
     describe("\"def\" Statement", () => {
@@ -14,9 +14,9 @@ describe("Parsing", () => {
                 const expected = {
                     "type": "av",
                     "properties": [
-                        { "name": "av", "type": "primitive", "value": 10000 },
-                        { "name": "page", "type": "primitive", "value": 1 },
-                        { "name": "time", "type": "primitive", "value": 150 }
+                        { "name": "av", "value": { "type": "number", "value": 10000 } },
+                        { "name": "page", "value": { "type": "number", "value": 1 } },
+                        { "name": "time", "value": { "type": "time", "value": 150 } }
                     ]
                 };
                 assert.deepStrictEqual(actual, expected);
@@ -45,21 +45,21 @@ describe("Parsing", () => {
                     "name": "b",
                     "type": "button",
                     "properties": [
-                        { "name": "text", "type": "primitive", "value": "av10000" },
-                        { "name": "x", "type": "primitive", "value": 100 },
-                        { "name": "y", "type": "primitive", "value": 50 },
-                        { "name": "fontSize", "type": "primitive", "value": 25 },
-                        { "name": "textColor", "type": "primitive", "value": 0x000000 },
-                        { "name": "fillColor", "type": "primitive", "value": 0xffffff },
-                        { "name": "fillAlpha", "type": "primitive", "value": 0.8 },
-                        { "name": "duration", "type": "primitive", "value": 2 },
+                        { "name": "text", "value": { "type": "string", "value": "av10000" } },
+                        { "name": "x", "value": { "type": "number", "value": 100 } },
+                        { "name": "y", "value": { "type": "number", "value": 50 } },
+                        { "name": "fontSize", "value": { "type": "number", "value": 25 } },
+                        { "name": "textColor", "value": { "type": "number", "value": 0x000000 } },
+                        { "name": "fillColor", "value": { "type": "number", "value": 0xffffff } },
+                        { "name": "fillAlpha", "value": { "type": "number", "value": 0.8 } },
+                        { "name": "duration", "value": { "type": "time", "value": 2 } },
                         {
-                            "name": "target", "type": "object", "value": {
+                            "name": "target", "value": {
                                 "type": "av",
                                 "properties": [
-                                    { "name": "av", "type": "primitive", "value": 10000 },
-                                    { "name": "page", "type": "primitive", "value": 1 },
-                                    { "name": "time", "type": "primitive", "value": 150 }
+                                    { "name": "av", "value": { "type": "number", "value": 10000 } },
+                                    { "name": "page", "value": { "type": "number", "value": 1 } },
+                                    { "name": "time", "value": { "type": "time", "value": 150 } }
                                 ]
                             }
                         }

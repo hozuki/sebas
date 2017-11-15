@@ -1,5 +1,5 @@
 const assert = require("assert");
-const parser = require("../../../../src/moe/mottomo/sebas/parsing/src/bas_parser");
+const parser = require("../../../../src/moe/mottomo/sebas/parsing/grammar/bas_parser");
 
 describe("Parsing", () => {
     describe("\"set\" Statement", () => {
@@ -10,24 +10,40 @@ describe("Parsing", () => {
                     y = [100, "easeOut"]
                     alpha = 1
                 } 1s, "linear"`;
-                const actual = parser.parse(text, { "startRule": "SetStatement" });
+                const actual = parser.parse(text, {"startRule": "SetStatement"});
                 const expected = {
                     "first": {
                         "target": {
                             "name": "t",
                             "properties": [
-                                { "name": "x", "type": "primitive", "value": 100 },
+                                {"name": "x", "value": {"type": "number", "value": 100}},
                                 {
-                                    "name": "y", "type": "animated", "value": {
-                                        "value": 100, "interpolation": "easeOut"
+                                    "name": "y", "value": {
+                                    "type": "interpolation",
+                                    "value": {
+                                        "targetValue": {
+                                            "type": "number",
+                                            "value": 100
+                                        },
+                                        "method": {
+                                            "type": "string",
+                                            "value": "easeOut"
+                                        }
                                     }
+                                }
                                 },
-                                { "name": "alpha", "type": "primitive", "value": 1 }
+                                {"name": "alpha", "value": {"type": "number", "value": 1}}
                             ]
                         },
                         "options": {
-                            "duration": 1,
-                            "defaultInterpolation": "linear"
+                            "duration": {
+                                "type": "time",
+                                "value": 1
+                            },
+                            "defaultInterpolationMethod": {
+                                "type": "string",
+                                "value": "linear"
+                            }
                         }
                     },
                     "then": null
@@ -44,18 +60,24 @@ describe("Parsing", () => {
                 then set a {
                     alpha = 0
                 } 1s, "easeOut"`;
-                const actual = parser.parse(text, { "startRule": "SetStatement" });
+                const actual = parser.parse(text, {"startRule": "SetStatement"});
                 const expected = {
                     "first": {
                         "target": {
                             "name": "a",
                             "properties": [
-                                { "name": "alpha", "type": "primitive", "value": 1 }
+                                {"name": "alpha", "value": {"type": "number", "value": 1}}
                             ]
                         },
                         "options": {
-                            "duration": 1,
-                            "defaultInterpolation": "easeIn"
+                            "duration": {
+                                "type": "time",
+                                "value": 1
+                            },
+                            "defaultInterpolationMethod": {
+                                "type": "string",
+                                "value": "easeIn"
+                            }
                         }
                     },
                     "then": [
@@ -64,12 +86,18 @@ describe("Parsing", () => {
                                 "target": {
                                     "name": "a",
                                     "properties": [
-                                        { "name": "alpha", "type": "primitive", "value": 0 }
+                                        {"name": "alpha", "value": {"type": "number", "value": 0}}
                                     ]
                                 },
                                 "options": {
-                                    "duration": 1,
-                                    "defaultInterpolation": "easeOut"
+                                    "duration": {
+                                        "type": "time",
+                                        "value": 1
+                                    },
+                                    "defaultInterpolationMethod": {
+                                        "type": "string",
+                                        "value": "easeOut"
+                                    }
                                 }
                             },
                             "then": null
@@ -93,18 +121,24 @@ describe("Parsing", () => {
                         alpha = 0.5
                     } 2s, "easeInOut"
                 }`;
-                const actual = parser.parse(text, { "startRule": "SetStatement" });
+                const actual = parser.parse(text, {"startRule": "SetStatement"});
                 const expected = {
                     "first": {
                         "target": {
                             "name": "a",
                             "properties": [
-                                { "name": "alpha", "type": "primitive", "value": 1 }
+                                {"name": "alpha", "value": {"type": "number", "value": 1}}
                             ]
                         },
                         "options": {
-                            "duration": 1,
-                            "defaultInterpolation": "easeIn"
+                            "duration": {
+                                "type": "time",
+                                "value": 1
+                            },
+                            "defaultInterpolationMethod": {
+                                "type": "string",
+                                "value": "easeIn"
+                            }
                         }
                     },
                     "then": [
@@ -115,12 +149,18 @@ describe("Parsing", () => {
                                         "target": {
                                             "name": "a",
                                             "properties": [
-                                                { "name": "alpha", "type": "primitive", "value": 0 }
+                                                {"name": "alpha", "value": {"type": "number", "value": 0}}
                                             ]
                                         },
                                         "options": {
-                                            "duration": 1,
-                                            "defaultInterpolation": "linear"
+                                            "duration": {
+                                                "type": "time",
+                                                "value": 1
+                                            },
+                                            "defaultInterpolationMethod": {
+                                                "type": "string",
+                                                "value": "linear"
+                                            }
                                         }
                                     },
                                     "then": null
@@ -130,12 +170,18 @@ describe("Parsing", () => {
                                         "target": {
                                             "name": "b",
                                             "properties": [
-                                                { "name": "alpha", "type": "primitive", "value": 0.5 }
+                                                {"name": "alpha", "value": {"type": "number", "value": 0.5}}
                                             ]
                                         },
                                         "options": {
-                                            "duration": 2,
-                                            "defaultInterpolation": "easeInOut"
+                                            "duration": {
+                                                "type": "time",
+                                                "value": 2
+                                            },
+                                            "defaultInterpolationMethod": {
+                                                "type": "string",
+                                                "value": "easeInOut"
+                                            }
                                         }
                                     },
                                     "then": null
@@ -165,17 +211,22 @@ describe("Parsing", () => {
                     }
                 }`;
 
+                let parseSuccessful = false;
                 try {
-                    const actual = parser.parse(text, { "startRule": "SetStatement" });
+                    const actual = parser.parse(text, {"startRule": "SetStatement"});
                     const loc = {
-                        "start": { "offset": 0, "line": 0, "column": 0 },
-                        "end": { "offset": 0, "line": 0, "column": 0 }
+                        "start": {"offset": 0, "line": 0, "column": 0},
+                        "end": {"offset": 0, "line": 0, "column": 0}
                     };
-                    throw new parser.SyntaxError("\"set\" groups should not be nested.", "", "", loc);
+                    parseSuccessful = true;
                 } catch (ex) {
                     if (!(ex instanceof parser.SyntaxError)) {
                         throw ex;
                     }
+                }
+
+                if (parseSuccessful) {
+                    throw new parser.SyntaxError("\"set\" groups should not be nested.", "", "", loc);
                 }
             });
         });
