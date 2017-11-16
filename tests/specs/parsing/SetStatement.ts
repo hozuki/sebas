@@ -1,5 +1,5 @@
-const assert = require("assert");
-const parser = require("../../../../src/moe/mottomo/sebas/parsing/grammar/bas_parser");
+import * as assert from "assert";
+import * as parser from "../../../src/moe/mottomo/sebas/parsing/grammar/bas_parser";
 
 describe("Parsing", () => {
     describe("\"set\" Statement", () => {
@@ -212,12 +212,13 @@ describe("Parsing", () => {
                 }`;
 
                 let parseSuccessful = false;
+                const loc = {
+                    "start": {"offset": 0, "line": 0, "column": 0},
+                    "end": {"offset": 0, "line": 0, "column": 0}
+                };
+
                 try {
                     const actual = parser.parse(text, {"startRule": "SetStatement"});
-                    const loc = {
-                        "start": {"offset": 0, "line": 0, "column": 0},
-                        "end": {"offset": 0, "line": 0, "column": 0}
-                    };
                     parseSuccessful = true;
                 } catch (ex) {
                     if (!(ex instanceof parser.SyntaxError)) {

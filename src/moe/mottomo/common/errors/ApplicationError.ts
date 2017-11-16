@@ -1,6 +1,6 @@
 export default class ApplicationError implements Error {
 
-    constructor(message?: string) {
+    constructor(message: string = null) {
         this._message = message;
     }
 

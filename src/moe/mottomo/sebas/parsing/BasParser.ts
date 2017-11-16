@@ -1,10 +1,16 @@
-import * as parser from "./grammar/bas_parser";
 import BasParserOptions from "./BasParserOptions";
+import * as parser from "./grammar/bas_parser";
 
-export default class BasParser {
+abstract class BasParser {
 
-    parse(text: string, options?: BasParserOptions): any {
+    static parse(text: string, options?: BasParserOptions): any {
         return parser.parse(text, options);
     }
 
+    static parseAs<T>(text: string, options?: BasParserOptions): T {
+        return BasParser.parse(text, options) as T;
+    }
+
 }
+
+export default BasParser;
