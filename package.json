@@ -50,6 +50,7 @@
     "mocha-appveyor-reporter": "^0.4.0",
     "mocha-multi-reporters": "^1.1.6",
     "pegjs": "^0.10.0",
+    "reflect-metadata": "^0.1.10",
     "tslint": "^5.8.0",
     "typescript": "^2.6.1"
   }

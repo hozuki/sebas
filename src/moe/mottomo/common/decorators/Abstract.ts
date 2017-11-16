@@ -1,16 +1,27 @@
-const key = "#sebas_abstract";
+const abstractSym = Symbol("SEBAS @Abstract");
 
 interface AbstractFields {
-    key: string;
+    symbol: symbol;
 }
 
 type AbstractType = ((ctor: Function) => void) & AbstractFields;
 
 function Abstract(ctor: Function): void {
-    ctor[key] = true;
-    ctor.prototype[key] = true;
+    for (const f of [ctor, ctor.prototype]) {
+        Object.defineProperty(f, abstractSym, {
+            enumerable: true,
+            configurable: false,
+            writable: false,
+            value: true
+        });
+    }
 }
 
-(Abstract as AbstractType).key = key;
+Object.defineProperty(Abstract, "symbol", {
+    enumerable: true,
+    configurable: false,
+    writable: false,
+    value: abstractSym
+});
 
 export default Abstract as AbstractType;

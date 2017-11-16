@@ -12,7 +12,7 @@ function Override(): Function {
 
         if (proto && proto !== Object.prototype) {
             // Check for direct inheritance from an abstract class.
-            if (Object.hasOwnProperty.call(proto, Abstract.key)) {
+            if (Object.hasOwnProperty.call(proto, Abstract.symbol)) {
                 return;
             }
         }

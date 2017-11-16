@@ -1,8 +1,10 @@
 import EventHandler from "../../../../../common/EventHandler";
 import Override from "../../../../../common/decorators/Override";
+import Sealed from "../../../../../common/decorators/Sealed";
 import Css3StageContext from "../Css3StageContext";
 import Css3UIElement from "../Css3UIElement";
 
+@Sealed
 export default class Css3ButtonElement extends Css3UIElement {
 
     constructor(context: Css3StageContext) {
