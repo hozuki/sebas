@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "title": "bangumi",
+    "properties": {
+        "seasonId": {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "http://json-schemas.dev.mottomo.moe/sebas/primitives/numbers/positive_integer.json"
+                }
+            ],
+            "default": {
+                "type": "number",
+                "value": 1
+            },
+            "description": "番剧id"
+        },
+        "episodeId": {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "http://json-schemas.dev.mottomo.moe/sebas/primitives/numbers/positive_integer.json"
+                }
+            ],
+            "default": {
+                "type": "number",
+                "value": 1
+            },
+            "description": "番剧分集id"
+        },
+        "time": {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "http://json-schemas.dev.mottomo.moe/sebas/primitives/time.json"
+                }
+            ],
+            "default": {
+                "type": "time",
+                "value": 0
+            },
+            "description": "视频开始播放点"
+        }
+    },
+    "required": [
+        "seasonId",
+        "episodeId"
+    ],
+    "additionalProperties": false
+}

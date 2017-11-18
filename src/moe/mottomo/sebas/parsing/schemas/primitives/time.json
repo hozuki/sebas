@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "http://json-schemas.dev.mottomo.moe/sebas/primitives/time.json",
+    "type": "object",
+    "properties": {
+        "type": {
+            "type": "string",
+            "enum": [
+                "time"
+            ]
+        },
+        "value": {
+            "type": "number",
+            "minimum": 0
+        }
+    },
+    "required": [
+        "type",
+        "value"
+    ],
+    "additionalProperties": false
+}

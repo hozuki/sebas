@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "title": "av",
+    "type": "object",
+    "properties": {
+        "av": {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "http://json-schemas.dev.mottomo.moe/sebas/primitives/numbers/positive_integer.json"
+                }
+            ],
+            "default": {
+                "type": "number",
+                "value": 1
+            },
+            "description": "视频av号"
+        },
+        "page": {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "http://json-schemas.dev.mottomo.moe/sebas/primitives/numbers/positive_integer.json"
+                }
+            ],
+            "default": {
+                "type": "number",
+                "value": 1
+            },
+            "description": "视频分P号"
+        },
+        "time": {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "http://json-schemas.dev.mottomo.moe/sebas/primitives/time.json"
+                }
+            ],
+            "default": {
+                "type": "time",
+                "value": 0
+            },
+            "description": "视频开始播放点"
+        }
+    },
+    "required": [
+        "av"
+    ],
+    "additionalProperties": false
+}

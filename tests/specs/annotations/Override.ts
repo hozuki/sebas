@@ -1,7 +1,9 @@
+import * as assert from "assert";
 import Abstract from "../../../src/moe/mottomo/common/decorators/Abstract";
 import Override from "../../../src/moe/mottomo/common/decorators/Override";
+import SpecHelper from "../SpecHelper";
 
-describe("Annotations", () => {
+export default () => {
     describe("@Override", () => {
 
         @Abstract
@@ -49,9 +51,7 @@ describe("Annotations", () => {
         });
 
         it("should throw when a method overrides a non-existing method in a concrete class", () => {
-            let definitionPassed = true;
-
-            try {
+            const r = SpecHelper.expectErrors((): void => {
                 class Parent extends AbstractParent {
                     @Override()
                     func(): string {
@@ -70,19 +70,9 @@ describe("Annotations", () => {
                         return "Child::func()";
                     }
                 }
-            } catch (ex) {
-                if (!(ex instanceof TypeError)) {
-                    throw ex;
-                }
+            }, TypeError);
 
-                console.info("Extra message: " + ex.message);
-
-                definitionPassed = false;
-            }
-
-            if (definitionPassed) {
-                throw new Error("Error in semantics.");
-            }
+            assert.ok(r.ok, r.message);
         });
     });
-});
+};

@@ -1,29 +1,54 @@
-import * as tv4 from "tv4";
+import * as Ajv from "ajv";
 import Helper from "../../common/Helper";
+import SingleValidationResult from "./SingleValidationResult";
+
+const ajv = new Ajv();
+
+const cachedSchemas: Map<object, Ajv.ValidateFunction> = new Map();
 
 abstract class BasValidator {
 
-    static validate(object: any, schema: tv4.JsonSchema, banUnknownProperties: boolean = true): boolean {
-        Helper.ensureNotNull(object);
-        const result = tv4.validate(object, schema, true, banUnknownProperties);
-        return result;
+    static get ajv(): Ajv.Ajv {
+        return ajv;
     }
 
-    static detailedValidate(object: any, schema: tv4.JsonSchema, banUnknownProperties: boolean = true): SingleValidateResult {
+    static validate(object: any, schema: tv4.JsonSchema): boolean {
         Helper.ensureNotNull(object);
-        const result = tv4.validateResult(object, schema, true, banUnknownProperties);
+        Helper.ensureNotNull(schema);
+
+        let validator: Ajv.ValidateFunction;
+
+        if (cachedSchemas.has(schema)) {
+            validator = cachedSchemas.get(schema);
+        } else {
+            validator = ajv.compile(schema);
+            cachedSchemas.set(schema, validator);
+        }
+
+        return !!validator(object);
+    }
+
+    static detailedValidate(object: any, schema: tv4.JsonSchema): SingleValidationResult {
+        Helper.ensureNotNull(object);
+        Helper.ensureNotNull(schema);
+
+        let validator: Ajv.ValidateFunction;
+
+        if (cachedSchemas.has(schema)) {
+            validator = cachedSchemas.get(schema);
+        } else {
+            validator = ajv.compile(schema);
+            cachedSchemas.set(schema, validator);
+        }
+
+        const valid = !!validator(object);
+        const errors = valid ? [] : validator.errors;
+
         return {
-            valid: !result.error,
-            error: result.error
+            valid,
+            errors
         };
     }
-
-}
-
-interface SingleValidateResult {
-
-    valid: boolean;
-    error: tv4.ValidationError;
 
 }
 

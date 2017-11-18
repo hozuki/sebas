@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "http://json-schemas.dev.mottomo.moe/sebas/primitives/string.json",
+    "type": "object",
+    "properties": {
+        "type": {
+            "type": "string",
+            "enum": [
+                "string"
+            ]
+        },
+        "value": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "type",
+        "value"
+    ],
+    "additionalProperties": false
+}

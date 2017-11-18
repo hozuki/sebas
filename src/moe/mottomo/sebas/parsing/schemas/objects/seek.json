@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "title": "seek",
+    "properties": {
+        "time": {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "http://json-schemas.dev.mottomo.moe/sebas/primitives/time.json"
+                }
+            ],
+            "default": {
+                "type": "time",
+                "value": 0
+            },
+            "description": "seek目标时间"
+        }
+    },
+    "required": [
+        "time"
+    ],
+    "additionalProperties": false
+}
