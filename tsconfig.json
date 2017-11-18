@@ -3,7 +3,8 @@
     "module": "commonjs",
     "target": "es2015",
     "sourceMap": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "importHelpers": true
   },
   "exclude": [
     "node_modules"
