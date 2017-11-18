@@ -3,9 +3,7 @@ import BasValidator from "./BasValidator";
 import * as _av from "./schemas/objects/av.json";
 import * as _bangumi from "./schemas/objects/bangumi.json";
 import * as _seek from "./schemas/objects/seek.json";
-import * as _number from "./schemas/primitives/number.json";
-import * as _non_negative_integer from "./schemas/primitives/numbers/non_negative_integer.json";
-import * as _positive_integer from "./schemas/primitives/numbers/positive_integer.json";
+import * as _numbers from "./schemas/primitives/numbers.json";
 import * as _percentage from "./schemas/primitives/percentage.json";
 import * as _string from "./schemas/primitives/string.json";
 import * as _time from "./schemas/primitives/time.json";
@@ -22,16 +20,8 @@ abstract class BasSchemas {
         return schemas.string;
     }
 
-    static get number(): tv4.JsonSchema {
-        return schemas.number;
-    }
-
-    static get positiveInteger(): tv4.JsonSchema {
-        return schemas.positiveInteger;
-    }
-
-    static get nonNegativeInteger(): tv4.JsonSchema {
-        return schemas.nonNegativeInteger;
+    static get numbers(): NumbersSchemaList {
+        return schemas.numbers;
     }
 
     static get percentage(): tv4.JsonSchema {
@@ -58,25 +48,25 @@ async function resolve(deref: boolean): Promise<void> {
     if (asyncExternalResolveEnabled && deref) {
         const RefParser = _RefParser as any as RefParser;
 
-        schemas.number = await RefParser.dereference(_number);
+        schemas.numbers = await RefParser.dereference(_numbers) as (tv4.JsonSchema & NumbersSchemaList);
+        schemas.numbers.number = await RefParser.dereference(_numbers.definitions.number);
+        schemas.numbers.positiveInteger = await RefParser.dereference(_numbers.definitions.positiveInteger);
+        schemas.numbers.nonNegativeInteger = await RefParser.dereference(_numbers.definitions.nonNegativeInteger);
         schemas.string = await RefParser.dereference(_string);
         schemas.time = await RefParser.dereference(_time);
         schemas.percentage = await RefParser.dereference(_percentage);
-
-        schemas.positiveInteger = await RefParser.dereference(_positive_integer);
-        schemas.nonNegativeInteger = await RefParser.dereference(_non_negative_integer);
 
         schemas.av = await RefParser.dereference(_av);
         schemas.bangumi = await RefParser.dereference(_bangumi);
         schemas.seek = await RefParser.dereference(_seek);
     } else {
-        schemas.number = _number;
+        schemas.numbers = _numbers;
+        schemas.numbers.number = _numbers.definitions.number;
+        schemas.numbers.positiveInteger = _numbers.definitions.positiveInteger;
+        schemas.numbers.nonNegativeInteger = _numbers.definitions.nonNegativeInteger;
         schemas.string = _string;
         schemas.time = _time;
         schemas.percentage = _percentage;
-
-        schemas.positiveInteger = _positive_integer;
-        schemas.nonNegativeInteger = _non_negative_integer;
 
         schemas.av = _av;
         schemas.bangumi = _bangumi;
@@ -88,12 +78,10 @@ resolve((typeof global === "object") && !!global).then((): void => {
     console.info("Schemas resolved.");
 
     const predefinedSchemas = [
-        BasSchemas.number,
+        BasSchemas.numbers,
         BasSchemas.string,
         BasSchemas.time,
-        BasSchemas.percentage,
-        BasSchemas.positiveInteger,
-        BasSchemas.nonNegativeInteger
+        BasSchemas.percentage
     ];
 
     for (const s of predefinedSchemas) {
@@ -111,17 +99,22 @@ interface RefParser {
 
 interface Schemas {
 
-    number: tv4.JsonSchema;
+    numbers: tv4.JsonSchema & NumbersSchemaList;
     string: tv4.JsonSchema;
     time: tv4.JsonSchema;
     percentage: tv4.JsonSchema;
 
-    positiveInteger: tv4.JsonSchema;
-    nonNegativeInteger: tv4.JsonSchema;
-
     av: tv4.JsonSchema;
     bangumi: tv4.JsonSchema;
     seek: tv4.JsonSchema;
+
+}
+
+interface NumbersSchemaList {
+
+    number: tv4.JsonSchema;
+    positiveInteger: tv4.JsonSchema;
+    nonNegativeInteger: tv4.JsonSchema;
 
 }
 

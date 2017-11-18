@@ -6,7 +6,7 @@
             "type": "object",
             "oneOf": [
                 {
-                    "$ref": "http://json-schemas.dev.mottomo.moe/sebas/primitives/numbers/positive_integer.json"
+                    "$ref": "http://json-schemas.dev.mottomo.moe/sebas/primitives/numbers.json#/definitions/positiveInteger"
                 }
             ],
             "default": {
@@ -19,7 +19,7 @@
             "type": "object",
             "oneOf": [
                 {
-                    "$ref": "http://json-schemas.dev.mottomo.moe/sebas/primitives/numbers/positive_integer.json"
+                    "$ref": "http://json-schemas.dev.mottomo.moe/sebas/primitives/numbers.json#/definitions/positiveInteger"
                 }
             ],
             "default": {

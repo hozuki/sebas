@@ -2,7 +2,11 @@ import * as Ajv from "ajv";
 import Helper from "../../common/Helper";
 import SingleValidationResult from "./SingleValidationResult";
 
-const ajv = new Ajv();
+const ajvOptions: Ajv.Options = {
+    jsonPointers: true
+};
+
+const ajv = new Ajv(ajvOptions);
 
 const cachedSchemas: Map<object, Ajv.ValidateFunction> = new Map();
 
