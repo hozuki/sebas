@@ -1,15 +1,17 @@
 abstract class Helper {
 
-    static ensureNotNull(value: any): void {
-        if (value === null || typeof(value) === "undefined") {
-            throw new TypeError("The value must not be null or undefined.");
+    static ensure(value: any, message?: string): void {
+        if (!value) {
+            throw new Error(message);
         }
     }
 
+    static ensureNotNull(value: any): void {
+        Helper.ensure(typeof(value) !== "undefined" && value !== null, "The value must not be null or undefined.");
+    }
+
     static ensureDefined(value: any): void {
-        if (typeof(value) === "undefined") {
-            throw new TypeError("The value must not be undefined.");
-        }
+        Helper.ensure(typeof(value) !== "undefined", "The value must not be undefined.");
     }
 
 }

@@ -93,9 +93,9 @@ export default () => {
                 type: "", value: {
                     x: {type: "number", value: 100},
                     y: {
-                        type: "interpolation", value: {
+                        type: "animated", value: {
                             targetValue: {type: "number", value: 100},
-                            method: {type: "string", value: "easeOut"}
+                            easing: {type: "string", value: "easeOut"}
                         }
                     },
                     alpha: {type: "number", value: 1}

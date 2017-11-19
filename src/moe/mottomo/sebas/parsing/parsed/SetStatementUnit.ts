@@ -1,5 +1,5 @@
-import SimpleSetTarget from "./SimpleSetTarget";
 import SimpleSetOptions from "./SimpleSetOptions";
+import SimpleSetTarget from "./SimpleSetTarget";
 
 interface SetStatementUnit {
 

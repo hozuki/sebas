@@ -68,7 +68,7 @@ SetPropItem
       "value": value
     };
   }
-  / _ name:ID _ "=" value: InterpolationTargetValue {
+  / _ name:ID _ "=" value: AnimatedValue {
     return {
       "name": name,
       "value": value
@@ -76,28 +76,28 @@ SetPropItem
   }
 
 SimpleSetOptions
-  = _ duration:TimeValue interp:_InterpolationMethod? {
-    const interpolation = interp ? interp : wrapPrimitive("string", "linear");
+  = _ duration:TimeValue easing:_EasingMethod? {
+    const e = easing ? easing : wrapPrimitive("string", "linear");
     const result = {
       "duration": duration,
-      "defaultInterpolationMethod": interpolation
+      "defaultEasing": e
     };
 
     return result;
   }
 
-InterpolationTargetValue
-  = _ "[" _ targetValue:PrimitiveValue interp:_InterpolationMethod? _ "]" {
+AnimatedValue
+  = _ "[" _ targetValue:PrimitiveValue easing:_EasingMethod? _ "]" {
     return {
-      "type": "interpolation",
+      "type": "animated",
       "value": {
         "targetValue": targetValue,
-        "method": interp // this can be null or empty
+        "easing": easing // this can be null or empty
       }
     };
   }
 
-_InterpolationMethod
+_EasingMethod
   = _ "," _ str:StringValue {
     return str ? str : wrapPrimitive("string", "linear");
   }

@@ -36,6 +36,7 @@
     "gulp-typescript": "^3.2.3",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
+    "move-js": "^0.5.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },

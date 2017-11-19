@@ -1,3 +1,4 @@
+import Helper from "./Helper";
 import RgbaColor from "./RgbaColor";
 import ArgumentOutOfRangeError from "./errors/ArgumentOutOfRangeError";
 
@@ -42,7 +43,7 @@ abstract class CssHelper {
                         b: Number.parseInt(match[2]),
                         a: 1
                     };
-                } else if (match = rgbPattern.exec(css)) {
+                } else if (match = rgbaPattern.exec(css)) {
                     return {
                         r: Number.parseInt(match[0]),
                         g: Number.parseInt(match[1]),
@@ -111,7 +112,50 @@ abstract class CssHelper {
         }
     }
 
+    static getCssName(element: HTMLElement, name: string): string | null {
+        Helper.ensure(element instanceof HTMLElement);
+        Helper.ensure(typeof(name) === "string");
+
+        const prefixes: string[] = [
+            "", "-ms-", "-moz-", "-webkit-", "-o-", "-khtml-"
+        ];
+        const capPattern = /-([a-z])/g;
+
+        for (const prefix of prefixes) {
+            const test = (prefix + name).replace(capPattern, replaceFunc);
+            if (test in element.style) {
+                return test;
+            }
+        }
+
+        return null;
+
+        function replaceFunc(_: any, $1: string): string {
+            return $1.toUpperCase();
+        }
+    }
+
+    static flashEasingToCssEasing(easing: string): string {
+        Helper.ensure(typeof(easing) === "string");
+
+        if (easing in directEaseMapping) {
+            return directEaseMapping[easing];
+        }
+
+        const hyphenPattern = /[A-Z]/g;
+
+        return easing.replace(hyphenPattern, replaceFunc);
+
+        function replaceFunc(match: string): string {
+            return "-" + match.toLowerCase();
+        }
+    }
+
 }
+
+const directEaseMapping = {
+    "easeInOut": "in-out"
+};
 
 const rgbPattern = /rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/;
 const rgbaPattern = /rgba\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\,\s*((?:\d+)(?:\.\d*)?|\.\d+)\s*\)/;

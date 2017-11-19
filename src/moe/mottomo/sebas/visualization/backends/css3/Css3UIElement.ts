@@ -1,10 +1,13 @@
+import * as Move from "move-js";
 import CssHelper from "../../../../common/CssHelper";
 import Helper from "../../../../common/Helper";
 import RgbaColor from "../../../../common/RgbaColor";
 import Abstract from "../../../../common/decorators/Abstract";
 import Override from "../../../../common/decorators/Override";
 import NotImplementedError from "../../../../common/errors/NotImplemetedError";
-import Animated from "../../Animated";
+import AnimatedValue from "../../../parsing/parsed/AnimatedValue";
+import AnimationState from "../../AnimationState";
+import IAnimationHandle from "../../IAnimationHandle";
 import UIElement from "../../UIElement";
 import Css3StageContext from "./Css3StageContext";
 
@@ -64,10 +67,16 @@ abstract class Css3UIElement extends UIElement {
         }
     }
 
-    setPropertyAnimated<K extends keyof ElementPropertiesTypeNameMap>(propName: string, propValue: Animated<ElementPropertiesTypeNameMap[K]>): void;
+    setPropertyAnimated<K extends keyof ElementPropertiesTypeNameMap>(propName: string, propValue: AnimatedValue<ElementPropertiesTypeNameMap[K]>): IAnimationHandle;
     @Override()
-    setPropertyAnimated(propName: string, propValue: Animated<any>): void {
+    setPropertyAnimated(propName: string, propValue: AnimatedValue<any>): IAnimationHandle {
+        const m = Move(this._element);
+        const easeName = CssHelper.flashEasingToCssEasing(propValue.easing);
+        m.ease(easeName);
+
         throw new NotImplementedError();
+
+        // return new Css3AnimationHandle(this._element, propName, m);
     }
 
     protected get native(): HTMLElement {
@@ -92,4 +101,47 @@ interface ElementPropertiesTypeNameMap {
     "textColor": number;
     "fillColor": number;
     "fillAlpha": number;
+}
+
+class Css3AnimationHandle implements IAnimationHandle {
+
+    constructor(element: HTMLElement, propName: string, move: MoveJS.Move) {
+        this._element = element;
+        this._propName = propName;
+        this._move = move;
+    }
+
+    resume(): void {
+        if (this.state !== AnimationState.Paused) {
+            return;
+        }
+
+        throw new NotImplementedError();
+    }
+
+    pause(): void {
+        if (this.state !== AnimationState.Playing) {
+            return;
+        }
+
+        throw new NotImplementedError();
+    }
+
+    stop(): void {
+        this._move.end();
+    }
+
+    getCurrentValue(): any {
+        return this._move.current(this._propName);
+    }
+
+    get state(): AnimationState {
+        return this._state;
+    }
+
+    private _element: HTMLElement = null;
+    private _propName: string = null;
+    private _move: MoveJS.Move = null;
+    private _state: AnimationState = AnimationState.Unknown;
+
 }

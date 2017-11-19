@@ -20,18 +20,18 @@ export default () => {
                                 {name: "x", value: {type: "number", value: 100}},
                                 {
                                     name: "y", value: {
-                                    type: "interpolation",
-                                    value: {
-                                        targetValue: {
-                                            type: "number",
-                                            value: 100
-                                        },
-                                        method: {
-                                            type: "string",
-                                            value: "easeOut"
+                                        type: "animated",
+                                        value: {
+                                            targetValue: {
+                                                type: "number",
+                                                value: 100
+                                            },
+                                            easing: {
+                                                type: "string",
+                                                value: "easeOut"
+                                            }
                                         }
                                     }
-                                }
                                 },
                                 {name: "alpha", value: {type: "number", value: 1}}
                             ]
@@ -41,7 +41,7 @@ export default () => {
                                 type: "time",
                                 value: 1
                             },
-                            defaultInterpolationMethod: {
+                            defaultEasing: {
                                 type: "string",
                                 value: "linear"
                             }
@@ -75,7 +75,7 @@ export default () => {
                                 type: "time",
                                 value: 1
                             },
-                            defaultInterpolationMethod: {
+                            defaultEasing: {
                                 type: "string",
                                 value: "easeIn"
                             }
@@ -95,7 +95,7 @@ export default () => {
                                         type: "time",
                                         value: 1
                                     },
-                                    defaultInterpolationMethod: {
+                                    defaultEasing: {
                                         type: "string",
                                         value: "easeOut"
                                     }
@@ -136,7 +136,7 @@ export default () => {
                                 type: "time",
                                 value: 1
                             },
-                            defaultInterpolationMethod: {
+                            defaultEasing: {
                                 type: "string",
                                 value: "easeIn"
                             }
@@ -158,7 +158,7 @@ export default () => {
                                                 type: "time",
                                                 value: 1
                                             },
-                                            defaultInterpolationMethod: {
+                                            defaultEasing: {
                                                 type: "string",
                                                 value: "linear"
                                             }
@@ -179,7 +179,7 @@ export default () => {
                                                 type: "time",
                                                 value: 2
                                             },
-                                            defaultInterpolationMethod: {
+                                            defaultEasing: {
                                                 type: "string",
                                                 value: "easeInOut"
                                             }
