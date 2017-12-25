@@ -11,7 +11,7 @@ export default () => {
                 value: 100
             };
 
-            const actual = BasValidator.detailedValidate(percentage, BasSchemas.percentage);
+            const actual = BasValidator.detailedValidate(percentage, BasSchemas.primitives.percentage);
             SpecHelper.expectSchema(actual, true);
         });
 
@@ -20,7 +20,7 @@ export default () => {
                 value: 100
             };
 
-            const actual = BasValidator.detailedValidate(percentage, BasSchemas.percentage);
+            const actual = BasValidator.detailedValidate(percentage, BasSchemas.primitives.percentage);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -31,14 +31,14 @@ export default () => {
                 someOther: 1234
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.percentage);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.percentage);
             SpecHelper.expectSchema(actual, false);
         });
 
         it("should throw on type mismatch", () => {
             const percentage = [];
 
-            const actual = BasValidator.detailedValidate(percentage, BasSchemas.percentage);
+            const actual = BasValidator.detailedValidate(percentage, BasSchemas.primitives.percentage);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -48,7 +48,7 @@ export default () => {
                 value: 100
             };
 
-            const actual = BasValidator.detailedValidate(percentage, BasSchemas.percentage);
+            const actual = BasValidator.detailedValidate(percentage, BasSchemas.primitives.percentage);
             SpecHelper.expectSchema(actual, false);
         });
 

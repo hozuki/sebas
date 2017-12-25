@@ -99,7 +99,7 @@ AnimatedValue
 
 _EasingMethod
   = _ "," _ str:StringValue {
-    return str ? str : wrapPrimitive("string", "linear");
+    return str || """;
   }
 
 DefStatement

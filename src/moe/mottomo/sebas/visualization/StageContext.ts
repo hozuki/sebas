@@ -2,6 +2,8 @@ import DisposableBase from "../../common/DisposableBase";
 import Helper from "../../common/Helper";
 import Abstract from "../../common/decorators/Abstract";
 import Override from "../../common/decorators/Override";
+import BasProgram from "../parsing/parsed/BasProgram";
+import ExecutionResult from "./ExecutionResult";
 import IStage from "./IStage";
 import IStageContext from "./IStageContext";
 import IUIElement from "./IUIElement";
@@ -20,6 +22,8 @@ abstract class StageContext extends DisposableBase implements IStageContext {
     get stage(): IStage {
         return this._stage;
     }
+
+    abstract execute(program: BasProgram): ExecutionResult;
 
     abstract createUIElement(type: string): IUIElement;
 

@@ -13,7 +13,11 @@ abstract class Stage implements IStage {
         this._view = this.createStage(root!);
     }
 
-    abstract createStage(root: HTMLElement): HTMLElement;
+    createStage(root: HTMLElement): HTMLElement {
+        if (this._view) {
+            return this._view;
+        }
+    }
 
     abstract resize(width: number, height: number): void;
 
@@ -27,8 +31,8 @@ abstract class Stage implements IStage {
         return this._view;
     }
 
-    private _root: HTMLElement;
-    private _view: HTMLElement;
+    private _root: HTMLElement = null;
+    private _view: HTMLElement = null;
 
 }
 

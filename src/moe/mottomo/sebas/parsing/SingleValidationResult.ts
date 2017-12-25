@@ -2,8 +2,8 @@ import * as ajv from "ajv";
 
 interface SingleValidationResult {
 
-    valid: boolean;
-    errors: ajv.ErrorObject[];
+    readonly valid: boolean;
+    readonly errors: ajv.ErrorObject[];
 
 }
 

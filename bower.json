@@ -1,0 +1,26 @@
+{
+  "name": "sebas",
+  "description": "SEBAS is a script engine designed to visualize the contents in BAS scripts.",
+  "main": "index.js",
+  "authors": [
+    "George Wu <uiharu@buaa.edu.cn>"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "sebas",
+    "webgl"
+  ],
+  "homepage": "https://github.com/hozuki/sebas",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "prefixfree": "prefix-free#^1.0.10"
+  }
+}

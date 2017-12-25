@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tests</title>
+    <script type="application/javascript" rel="script" language="JavaScript">
+        (() => {
+            let target;
+            if (typeof(global) === "object" && global) {
+                target = "nw/index.html"
+            } else {
+                target = "browser/index/html";
+            }
+
+            location.assign(target);
+        })();
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -21,7 +21,7 @@ export default () => {
                 }
             };
 
-            const actual = BasValidator.detailedValidate(bangumi, BasSchemas.bangumi);
+            const actual = BasValidator.detailedValidate(bangumi, BasSchemas.objects.bangumi);
             SpecHelper.expectSchema(actual, true);
         });
 
@@ -37,7 +37,7 @@ export default () => {
                 }
             };
 
-            const actual = BasValidator.detailedValidate(bangumi, BasSchemas.bangumi);
+            const actual = BasValidator.detailedValidate(bangumi, BasSchemas.objects.bangumi);
             SpecHelper.expectSchema(actual, true);
         });
 
@@ -53,7 +53,7 @@ export default () => {
                 }
             };
 
-            const actual = BasValidator.detailedValidate(bangumi, BasSchemas.bangumi);
+            const actual = BasValidator.detailedValidate(bangumi, BasSchemas.objects.bangumi);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -69,7 +69,7 @@ export default () => {
                 }
             };
 
-            const actual = BasValidator.detailedValidate(bangumi, BasSchemas.bangumi);
+            const actual = BasValidator.detailedValidate(bangumi, BasSchemas.objects.bangumi);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -90,7 +90,7 @@ export default () => {
                 someExtraField: "there!"
             };
 
-            const actual = BasValidator.detailedValidate(bangumi, BasSchemas.bangumi);
+            const actual = BasValidator.detailedValidate(bangumi, BasSchemas.objects.bangumi);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -107,7 +107,7 @@ export default () => {
                 }
             };
 
-            const actual = BasValidator.detailedValidate(bangumi, BasSchemas.bangumi);
+            const actual = BasValidator.detailedValidate(bangumi, BasSchemas.objects.bangumi);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -127,7 +127,7 @@ export default () => {
                 }
             };
 
-            const actual = BasValidator.detailedValidate(bangumi, BasSchemas.bangumi);
+            const actual = BasValidator.detailedValidate(bangumi, BasSchemas.objects.bangumi);
             SpecHelper.expectSchema(actual, false);
         });
 

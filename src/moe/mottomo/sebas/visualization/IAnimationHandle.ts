@@ -1,6 +1,10 @@
+import IDisposable from "../../common/IDisposable";
 import AnimationState from "./AnimationState";
+import IStageContext from "./IStageContext";
 
-interface IAnimationHandle {
+interface IAnimationHandle extends IDisposable {
+
+    play(): void;
 
     pause(): void;
 
@@ -8,9 +12,9 @@ interface IAnimationHandle {
 
     stop(): void;
 
-    getCurrentValue(): any;
-
     readonly state: AnimationState;
+
+    readonly $stageContext: IStageContext;
 
 }
 

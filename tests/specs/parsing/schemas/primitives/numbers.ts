@@ -11,7 +11,7 @@ export default () => {
                 value: 100
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.number);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.number);
             SpecHelper.expectSchema(actual, true);
         });
 
@@ -20,7 +20,7 @@ export default () => {
                 value: 100
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.number);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.number);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -31,14 +31,14 @@ export default () => {
                 someOther: 1234
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.number);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.number);
             SpecHelper.expectSchema(actual, false);
         });
 
         it("should throw on type mismatch", () => {
             const number = [];
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.number);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.number);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -48,7 +48,7 @@ export default () => {
                 value: 100
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.number);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.number);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -62,7 +62,7 @@ export default () => {
                 value: 100
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.nonNegativeInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.nonNegativeInteger);
             SpecHelper.expectSchema(actual, true);
         });
 
@@ -72,7 +72,7 @@ export default () => {
                 value: 0
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.nonNegativeInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.nonNegativeInteger);
             SpecHelper.expectSchema(actual, true);
         });
 
@@ -82,7 +82,7 @@ export default () => {
                 value: -120
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.nonNegativeInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.nonNegativeInteger);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -92,7 +92,7 @@ export default () => {
                 value: 123.45
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.nonNegativeInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.nonNegativeInteger);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -101,7 +101,7 @@ export default () => {
                 value: 100
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.nonNegativeInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.nonNegativeInteger);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -112,14 +112,14 @@ export default () => {
                 someOther: 1234
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.nonNegativeInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.nonNegativeInteger);
             SpecHelper.expectSchema(actual, false);
         });
 
         it("should throw on type mismatch", () => {
             const number = [];
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.nonNegativeInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.nonNegativeInteger);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -129,7 +129,7 @@ export default () => {
                 value: 100
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.nonNegativeInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.nonNegativeInteger);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -143,7 +143,7 @@ export default () => {
                 value: 100
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.positiveInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.positiveInteger);
             SpecHelper.expectSchema(actual, true);
         });
 
@@ -153,7 +153,7 @@ export default () => {
                 value: 0
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.positiveInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.positiveInteger);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -163,7 +163,7 @@ export default () => {
                 value: -120
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.positiveInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.positiveInteger);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -173,7 +173,7 @@ export default () => {
                 value: 123.45
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.positiveInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.positiveInteger);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -182,7 +182,7 @@ export default () => {
                 value: 100
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.positiveInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.positiveInteger);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -193,14 +193,14 @@ export default () => {
                 someOther: 1234
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.positiveInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.positiveInteger);
             SpecHelper.expectSchema(actual, false);
         });
 
         it("should throw on type mismatch", () => {
             const number = [];
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.positiveInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.positiveInteger);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -210,7 +210,7 @@ export default () => {
                 value: 100
             };
 
-            const actual = BasValidator.detailedValidate(number, BasSchemas.numbers.positiveInteger);
+            const actual = BasValidator.detailedValidate(number, BasSchemas.primitives.numbers.positiveInteger);
             SpecHelper.expectSchema(actual, false);
         });
 

@@ -11,7 +11,7 @@ export default () => {
                 value: "abc"
             };
 
-            const actual = BasValidator.detailedValidate(string, BasSchemas.string);
+            const actual = BasValidator.detailedValidate(string, BasSchemas.primitives.string);
             SpecHelper.expectSchema(actual, true);
         });
 
@@ -20,7 +20,7 @@ export default () => {
                 value: "abc"
             };
 
-            const actual = BasValidator.detailedValidate(string, BasSchemas.string);
+            const actual = BasValidator.detailedValidate(string, BasSchemas.primitives.string);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -31,14 +31,14 @@ export default () => {
                 someOther: 1234
             };
 
-            const actual = BasValidator.detailedValidate(string, BasSchemas.string);
+            const actual = BasValidator.detailedValidate(string, BasSchemas.primitives.string);
             SpecHelper.expectSchema(actual, false);
         });
 
         it("should throw on type mismatch", () => {
             const string = "string";
 
-            const actual = BasValidator.detailedValidate(string, BasSchemas.string);
+            const actual = BasValidator.detailedValidate(string, BasSchemas.primitives.string);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -48,7 +48,7 @@ export default () => {
                 value: "abc"
             };
 
-            const actual = BasValidator.detailedValidate(string, BasSchemas.string);
+            const actual = BasValidator.detailedValidate(string, BasSchemas.primitives.string);
             SpecHelper.expectSchema(actual, false);
         });
 

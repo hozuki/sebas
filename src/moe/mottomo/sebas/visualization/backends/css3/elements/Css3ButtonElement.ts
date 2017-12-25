@@ -41,11 +41,11 @@ export default class Css3ButtonElement extends Css3UIElement {
     }
 
     private addClickHandler(handler: EventHandler<HTMLButtonElement, MouseEvent>): void {
-        this.native.addEventListener("click", handler);
+        this.element.addEventListener("click", handler);
     }
 
     private removeClickHandler(handler: EventHandler<HTMLButtonElement, MouseEvent>): void {
-        this.native.removeEventListener("click", handler);
+        this.element.removeEventListener("click", handler);
     }
 
     private _lastClickHandler: EventHandler<HTMLButtonElement, MouseEvent> = null;

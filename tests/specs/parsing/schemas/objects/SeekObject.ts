@@ -13,14 +13,14 @@ export default () => {
                 }
             };
 
-            const actual = BasValidator.detailedValidate(seek, BasSchemas.seek);
+            const actual = BasValidator.detailedValidate(seek, BasSchemas.objects.seek);
             SpecHelper.expectSchema(actual, true);
         });
 
         it("should throw on compulsory \"time\" field", () => {
             const seek = {};
 
-            const actual = BasValidator.detailedValidate(seek, BasSchemas.seek);
+            const actual = BasValidator.detailedValidate(seek, BasSchemas.objects.seek);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -33,7 +33,7 @@ export default () => {
                 extra: {prop: "value"}
             };
 
-            const actual = BasValidator.detailedValidate(seek, BasSchemas.seek);
+            const actual = BasValidator.detailedValidate(seek, BasSchemas.objects.seek);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -45,7 +45,7 @@ export default () => {
                 }]
             };
 
-            const actual = BasValidator.detailedValidate(seek, BasSchemas.bangumi);
+            const actual = BasValidator.detailedValidate(seek, BasSchemas.objects.bangumi);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -57,7 +57,7 @@ export default () => {
                 }
             };
 
-            const actual = BasValidator.detailedValidate(seek, BasSchemas.seek);
+            const actual = BasValidator.detailedValidate(seek, BasSchemas.objects.seek);
             SpecHelper.expectSchema(actual, false);
         });
 

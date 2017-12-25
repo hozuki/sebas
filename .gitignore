@@ -7,3 +7,4 @@ tests/specs/**/*.js
 tests/specs/**/*.js.map
 
 node_modules
+tests/visual/bower_components

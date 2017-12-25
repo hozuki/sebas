@@ -13,6 +13,10 @@ export default class Css3Stage extends Stage {
 
     @Override()
     createStage(root: HTMLElement): HTMLElement {
+        if (this.view) {
+            return this.view;
+        }
+
         const div = document.createElement("div");
         root.appendChild(div);
 

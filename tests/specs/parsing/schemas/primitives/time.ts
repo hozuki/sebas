@@ -11,7 +11,7 @@ export default () => {
                 value: 1
             };
 
-            const actual = BasValidator.detailedValidate(time, BasSchemas.time);
+            const actual = BasValidator.detailedValidate(time, BasSchemas.primitives.time);
             SpecHelper.expectSchema(actual, true);
         });
 
@@ -20,7 +20,7 @@ export default () => {
                 value: 1
             };
 
-            const actual = BasValidator.detailedValidate(time, BasSchemas.time);
+            const actual = BasValidator.detailedValidate(time, BasSchemas.primitives.time);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -31,14 +31,14 @@ export default () => {
                 someOther: 1234
             };
 
-            const actual = BasValidator.detailedValidate(time, BasSchemas.time);
+            const actual = BasValidator.detailedValidate(time, BasSchemas.primitives.time);
             SpecHelper.expectSchema(actual, false);
         });
 
         it("should throw on type mismatch", () => {
             const time = 0;
 
-            const actual = BasValidator.detailedValidate(time, BasSchemas.time);
+            const actual = BasValidator.detailedValidate(time, BasSchemas.primitives.time);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -48,7 +48,7 @@ export default () => {
                 value: 1
             };
 
-            const actual = BasValidator.detailedValidate(time, BasSchemas.time);
+            const actual = BasValidator.detailedValidate(time, BasSchemas.primitives.time);
             SpecHelper.expectSchema(actual, false);
         });
 
@@ -58,7 +58,7 @@ export default () => {
                 value: -123
             };
 
-            const actual = BasValidator.detailedValidate(time, BasSchemas.time);
+            const actual = BasValidator.detailedValidate(time, BasSchemas.primitives.time);
             SpecHelper.expectSchema(actual, false);
         });
 

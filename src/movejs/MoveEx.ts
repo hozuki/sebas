@@ -1,4 +1,5 @@
 import * as move from "move-js";
+import Override from "../moe/mottomo/common/decorators/Override";
 
 export default class MoveEx extends move {
 
@@ -6,7 +7,19 @@ export default class MoveEx extends move {
         super(el);
     }
 
-    translate3D(x: number, y: number, z: number): this {
+    @Override()
+    to(x: number, y?: number, z?: number): this {
+        if (arguments.length < 3) {
+            return super.to(x, y);
+        } else {
+            return this.translate3D(x, y, z);
+        }
+    }
+
+    translate3D(x: number, y?: number, z?: number): this {
+        y = typeof(y) === "number" ? y : 0;
+        z = typeof(z) === "number" ? z : 0;
+
         return this.transform(`translate3D(${x}px,${y}px,${z}px)`);
     }
 
@@ -24,6 +37,7 @@ export default class MoveEx extends move {
 
     scale(value: number): this;
     scale(x: number, y: number): this;
+    @Override()
     scale(x: number, y?: number): this {
         // Please notice the behavior difference compared to original:
         // https://github.com/visionmedia/move.js/blob/dfa94d0a55e41cc6321282ab49eea5f40afb68b2/move.js#L903-L908

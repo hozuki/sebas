@@ -3,12 +3,14 @@ environment:
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - npm install -g npm
+  - npm install -g npm bower
   - npm install
+  - bower install
 
 build: off
 
 test_script:
   - node --version
   - npm --version
+  - bower --version
   - npm test

@@ -1,5 +1,5 @@
-import PrimitiveValue from "./PrimitiveValue";
 import DefSubPropObject from "./DefSubPropObject";
+import PrimitiveValue from "./PrimitiveValue";
 
 interface DefPropItem {
 

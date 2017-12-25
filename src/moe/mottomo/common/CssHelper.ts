@@ -112,8 +112,12 @@ abstract class CssHelper {
         }
     }
 
-    static getCssName(element: HTMLElement, name: string): string | null {
-        Helper.ensure(element instanceof HTMLElement);
+    static getCssName(name: string, element?: HTMLElement): string | null {
+        if (element) {
+            Helper.ensure(element instanceof HTMLElement);
+        } else {
+            element = document.body;
+        }
         Helper.ensure(typeof(name) === "string");
 
         const prefixes: string[] = [

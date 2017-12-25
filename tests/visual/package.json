@@ -1,0 +1,11 @@
+{
+  "name": "sebas-visual-tests",
+  "version": "0.0.1",
+  "main": "index.html",
+  "dependencies": {
+    "jquerykeyframes": "0.0.10"
+  },
+  "devDependencies": {
+    "nw-dev": "^3.0.1"
+  }
+}
