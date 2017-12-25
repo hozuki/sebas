@@ -6,7 +6,7 @@ SEBAS is a script engine designed to visualize the contents in BAS scripts.
 
 **Sebas** (short for Sebastian) is also a mysterious common name for butlers.
 
-Work in progress. **UNSTABLE.**
+**Status: suspended. The BAS playground already provides an implementation.**
 
 [![AppVeyor](https://img.shields.io/appveyor/ci/hozuki/sebas.svg)](https://ci.appveyor.com/project/hozuki/sebas)
 [![AppVeyor tests](https://img.shields.io/appveyor/tests/hozuki/sebas.svg)](https://ci.appveyor.com/project/hozuki/sebas/build/tests)
